@@ -10,7 +10,7 @@
 
 简书：http://www.jianshu.com/p/9211f42d5c25
 
-##  screen shot for iOS  hh
+##  screen shot for iOS  hhgg
 
 <img src="https://github.com/huanxsd/MeiTuan/blob/master/screenshot/iOS_0.png">
 
