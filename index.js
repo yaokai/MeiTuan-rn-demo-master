@@ -19,4 +19,7 @@ export default class MeiTuan extends PureComponent<{}> {
     }
 }
 
+
+
+
 AppRegistry.registerComponent('MeiTuan', () => MeiTuan);
