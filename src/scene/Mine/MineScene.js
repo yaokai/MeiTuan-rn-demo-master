@@ -97,7 +97,11 @@ class MineScene extends PureComponent<Props, State> {
                         <Heading2 style={{color: 'white'}}>素敌</Heading2>
                         <Image style={{marginLeft: 4}} source={require('../../img/mine/beauty_technician_v15.png')} />
                     </View>
-                    <Paragraph style={{color: 'white', marginTop: 4}}>个人信息 ></Paragraph>
+                    <Paragraph
+                        onPress={() => {
+                            this.props.navigation.navigate('Login')
+                        }}
+                        style={{color: 'white', marginTop: 4}}>个人信息 ></Paragraph>
                 </View>
             </View>
         )
