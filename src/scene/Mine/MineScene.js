@@ -2,7 +2,7 @@
  * Copyright (c) 2017-present, Liu Jinyong
  * All rights reserved.
  *
- * https://github.com/huanxsd/MeiTuan 
+ * https://github.com/huanxsd/MeiTuan
  * @flow
  */
 
@@ -14,15 +14,21 @@ import {Heading2, Heading3, Paragraph} from '../../widget/Text'
 import {screen, system} from '../../common'
 import {color, DetailCell, NavigationItem, SpacingView} from '../../widget'
 
-type Props = {
+import {turn2MapApp} from '../../common/tool'
+import LoginScene from "./LoginScene";
+import DeviceStorage from "../../common/DeviceStorage"
 
-}
+
+type Props = {}
 
 type State = {
     isRefreshing: boolean,
+    loginSatus: boolean,
+    username: String,
 }
 
 class MineScene extends PureComponent<Props, State> {
+
 
     static navigationOptions = ({navigation}: any) => ({
         headerRight: (
@@ -30,6 +36,7 @@ class MineScene extends PureComponent<Props, State> {
                 <NavigationItem
                     icon={require('../../img/mine/icon_navigation_item_set_white.png')}
                     onPress={() => {
+                        navigation.navigate('Login')
 
                     }}
                 />
@@ -49,14 +56,19 @@ class MineScene extends PureComponent<Props, State> {
     })
 
     state: {
-        isRefreshing: boolean
+        isRefreshing: boolean,
+        loginSatus: boolean,
+        username: String,
+
     }
 
     constructor(props: Object) {
         super(props)
 
         this.state = {
-            isRefreshing: false
+            isRefreshing: false,
+            loginSatus: false,
+            username: "未登录"
         }
     }
 
@@ -75,10 +87,10 @@ class MineScene extends PureComponent<Props, State> {
             let sublist = dataList[i]
             for (let j = 0; j < sublist.length; j++) {
                 let data = sublist[j]
-                let cell = <DetailCell image={data.image} title={data.title} subtitle={data.subtitle} key={data.title} />
+                let cell = <DetailCell image={data.image} title={data.title} subtitle={data.subtitle} key={data.title}/>
                 cells.push(cell)
             }
-            cells.push(<SpacingView key={i} />)
+            cells.push(<SpacingView key={i}/>)
         }
 
         return (
@@ -88,18 +100,32 @@ class MineScene extends PureComponent<Props, State> {
         )
     }
 
+    _loginAfter = () => {
+        this.setState({loginSatus: true})
+    }
+
     renderHeader() {
+        DeviceStorage.get('username').then((tags) => {
+
+            this.setState({username: tags});
+        });
         return (
+
             <View style={styles.header}>
-                <Image style={styles.avatar} source={require('../../img/mine/avatar.png')} />
+                <Image style={styles.avatar} source={require('../../img/mine/avatar.png')}/>
                 <View>
                     <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                        <Heading2 style={{color: 'white'}}>素敌</Heading2>
-                        <Image style={{marginLeft: 4}} source={require('../../img/mine/beauty_technician_v15.png')} />
+                        <Heading2 style={{color: 'white'}}>{this.state.username}</Heading2>
+                        <Image style={{marginLeft: 4}} source={require('../../img/mine/beauty_technician_v15.png')}/>
                     </View>
                     <Paragraph
                         onPress={() => {
-                            this.props.navigation.navigate('Login')
+
+                            turn2MapApp(118.803804, 32.050571, 'baidu', '总统府1');
+
+                            this.props.navigation.navigate('Web')
+                            // this.props.navigation.navigate('Login')
+
                         }}
                         style={{color: 'white', marginTop: 4}}>个人信息 ></Paragraph>
                 </View>
@@ -108,23 +134,37 @@ class MineScene extends PureComponent<Props, State> {
     }
 
     render() {
-        return (
-            <View style={{flex: 1, backgroundColor: color.paper}}>
-                <View style={{position: 'absolute', width: screen.width, height: screen.height / 2, backgroundColor: color.primary}} />
-                <ScrollView
-                    refreshControl={
-                        <RefreshControl
-                            refreshing={this.state.isRefreshing}
-                            onRefresh={() => this.onHeaderRefresh()}
-                            tintColor='gray'
-                        />
-                    }>
-                    {this.renderHeader()}
-                    <SpacingView />
-                    {this.renderCells()}
-                </ScrollView>
-            </View>
-        )
+
+        if (!this.state.loginSatus) {
+
+            return (
+                <LoginScene afterLogin={this._loginAfter} name="kk"/>
+            )
+
+        } else {
+            return (
+                <View style={{flex: 1, backgroundColor: color.paper}}>
+                    <View style={{
+                        position: 'absolute',
+                        width: screen.width,
+                        height: screen.height / 2,
+                        backgroundColor: color.primary
+                    }}/>
+                    <ScrollView
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.isRefreshing}
+                                onRefresh={() => this.onHeaderRefresh()}
+                                tintColor='gray'
+                            />
+                        }>
+                        {this.renderHeader()}
+                        <SpacingView/>
+                        {this.renderCells()}
+                    </ScrollView>
+                </View>
+            )
+        }
     }
 
     getDataList() {
@@ -150,6 +190,7 @@ class MineScene extends PureComponent<Props, State> {
             ]
         )
     }
+
 
 }
 

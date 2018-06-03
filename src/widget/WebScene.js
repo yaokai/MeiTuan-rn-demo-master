@@ -23,13 +23,13 @@ class WebScene extends PureComponent<Props, State> {
 
     static navigationOptions = ({navigation}: any) => ({
         headerStyle: {backgroundColor: 'white'},
-        title: navigation.state.params.title,
+        title: '网页',
     })
 
     constructor(props: Props) {
         super(props)
         this.state = {
-            source: {}
+            source: "http://www.baidu.com"
         }
     }
 
@@ -46,7 +46,7 @@ class WebScene extends PureComponent<Props, State> {
                 <WebView
                     automaticallyAdjustContentInsets={false}
                     style={styles.webView}
-                    source={this.state.source}
+                    source={{uri:'http://192.168.2.101:8080/baidumap/index2.html'}}
                     onLoadEnd={(e) => this.onLoadEnd(e)}
                     scalesPageToFit
                 />

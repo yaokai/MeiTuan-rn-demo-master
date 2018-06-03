@@ -16,9 +16,6 @@ import {screen, system} from '../../common'
 import api, {recommendUrlWithId, groupPurchaseDetailWithId} from '../../api'
 import GroupPurchaseCell from './GroupPurchaseCell'
 
-// var Bmob = require('../../bmob/Bmob-1.4.4.min.js');
-
-
 type Props = {
     navigation: any,
 }
