@@ -12,6 +12,7 @@
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-native": "0.50.1",
+    "react-native-baidumap-sdk": "^0.5.4",
     "react-native-page-control": "^1.1.1",
     "react-native-refresh-list-view": "^1.0.6",
     "react-native-scrollable-tab-view": "^0.8.0",
