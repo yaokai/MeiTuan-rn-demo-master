@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
     p: {
         fontSize: 13,
-        color: '#777777',
+        color: '#FFFFFF',
     },
     tip: {
         fontSize: 13,

@@ -46,14 +46,28 @@ class WebScene extends PureComponent<Props, State> {
                 <WebView
                     automaticallyAdjustContentInsets={false}
                     style={styles.webView}
-                    source={{uri:'http://192.168.2.101:8080/baidumap/index2.html'}}
+                    source={{uri:this.props.navigation.state.params.info}}
                     onLoadEnd={(e) => this.onLoadEnd(e)}
                     scalesPageToFit
+                    //防止错误提示
+                    nativeConfig={
+                        {
+                            props: {
+                                backgroundColor: '#ffffff',
+                                flex: 1,
+                            }
+                        }
+                    }
+                    renderError={this._renderError}
                 />
             </View>
         )
     }
 
+
+    _renderError = ()=>{
+        return <View style={{width: 0, height: 0}}/>
+    };
     onLoadEnd(e: any) {
         if (e.nativeEvent.title.length > 0) {
             this.props.navigation.setParams({title: e.nativeEvent.title})

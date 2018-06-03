@@ -2,13 +2,25 @@
  * Copyright (c) 2017-present, Liu Jinyong
  * All rights reserved.
  *
- * https://github.com/huanxsd/MeiTuan 
+ * https://github.com/huanxsd/MeiTuan
  * @flow
  */
 
 
 import React, {PureComponent} from 'react'
-import {View, Text, StyleSheet, ScrollView, TouchableOpacity, ListView, Image, StatusBar, FlatList} from 'react-native'
+import {
+    View,
+    TouchableWithoutFeedback,
+    Text,
+    StyleSheet,
+    ScrollView,
+    TouchableOpacity,
+    ListView,
+    Image,
+    StatusBar,
+    FlatList,
+    Dimensions
+} from 'react-native'
 
 import {Heading2, Heading3, Paragraph} from '../../widget/Text'
 import {color, Button, NavigationItem, SpacingView} from '../../widget'
@@ -20,6 +32,10 @@ import api from '../../api'
 import HomeMenuView from './HomeMenuView'
 import HomeGridView from './HomeGridView'
 import GroupPurchaseCell from '../GroupPurchase/GroupPurchaseCell'
+import Swiper from 'react-native-swiper'
+
+const {width} = Dimensions.get('window');
+
 
 type Props = {
     navigation: any,
@@ -36,10 +52,10 @@ class HomeScene extends PureComponent<Props, State> {
 
     static navigationOptions = ({navigation}: any) => ({
         headerTitle: (
-            <TouchableOpacity style={styles.searchBar}>
-                <Image source={require('../../img/home/search_icon.png')} style={styles.searchIcon} />
-                <Paragraph>一点点</Paragraph>
-            </TouchableOpacity>
+            <View style={styles.searchBar}>
+                <Image resizeMode='stretch' source={require('../../img/home/car.png')} style={styles.searchIcon}/>
+                <Paragraph>养车第一站</Paragraph>
+            </View>
         ),
         headerRight: (
             <NavigationItem
@@ -51,7 +67,7 @@ class HomeScene extends PureComponent<Props, State> {
         ),
         headerLeft: (
             <NavigationItem
-                title='福州'
+                title='南京'
                 titleStyle={{color: 'white'}}
                 onPress={() => {
 
@@ -81,7 +97,7 @@ class HomeScene extends PureComponent<Props, State> {
         this.requestDiscount()
         this.requestRecommend()
     }
-    
+
     requestRecommend = async () => {
         try {
             let response = await fetch(api.recommend)
@@ -139,10 +155,43 @@ class HomeScene extends PureComponent<Props, State> {
     renderHeader = () => {
         return (
             <View>
-                <HomeMenuView menuInfos={api.menuInfo} onMenuSelected={this.onMenuSelected} />
-                <SpacingView />
-                <HomeGridView infos={this.state.discounts} onGridSelected={(this.onGridSelected)} />
-                <SpacingView />
+                <Swiper style={styles.wrapper} showsButtons={false} autoplay={true}>
+
+                    <TouchableWithoutFeedback onPress={() => {
+
+                        this.props.navigation.navigate('Web', {info: 'http://www.laosiji.com/thread/308460.html'})
+
+                    }}>
+                        <View style={styles.slide1}>
+                            <Image resizeMode='stretch' style={styles.image}
+                                   source={require('../../img/home/ad1.jpeg')}/>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => {
+                        this.props.navigation.navigate('Web', {info: 'http://www.laosiji.com/thread/309280.html'})
+
+
+                    }}>
+                        <View style={styles.slide2}>
+
+                            <Image resizeMode='stretch' style={styles.image}
+                                   source={require('../../img/home/ad2.jpeg')}/>
+                        </View>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => {
+                        this.props.navigation.navigate('Web', {info: 'http://www.laosiji.com/thread/309271.html'})
+
+                    }}>
+                        <View style={styles.slide3}>
+
+                            <Image resizeMode='stretch' style={styles.image}
+                                   source={require('../../img/home/ad3.jpeg')}/>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </Swiper>
+                <HomeMenuView menuInfos={api.menuInfo} onMenuSelected={this.onMenuSelected}/>
+                <SpacingView/>
+                <HomeGridView infos={this.state.discounts} onGridSelected={(this.onGridSelected)}/>
                 <View style={styles.recommendHeader}>
                     <Heading3>猜你喜欢</Heading3>
                 </View>
@@ -155,7 +204,6 @@ class HomeScene extends PureComponent<Props, State> {
 
         if (discount.type == 1) {
             StatusBar.setBarStyle('default', false)
-
             let location = discount.tplurl.indexOf('http')
             let url = discount.tplurl.slice(location)
             this.props.navigation.navigate('Web', {url: url})
@@ -186,6 +234,41 @@ class HomeScene extends PureComponent<Props, State> {
 
 
 const styles = StyleSheet.create({
+
+
+    image: {
+        height: 200,
+        width: width
+    },
+
+    wrapper: {
+        height: 200,
+    },
+    slide1: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#9DD6EB'
+    },
+    slide2: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#97CAE5'
+    },
+    slide3: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#92BBD9'
+    },
+    text: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold'
+    },
+
+
     container: {
         flex: 1,
         backgroundColor: color.paper
@@ -202,11 +285,11 @@ const styles = StyleSheet.create({
     searchBar: {
         width: screen.width * 0.7,
         height: 30,
-        borderRadius: 19,
+        // borderRadius: 19,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         alignSelf: 'center',
     },
     searchIcon: {
