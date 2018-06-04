@@ -18,7 +18,7 @@ export default {
         {title: '补漆', icon: require('./img/home/icon_homepage_food_category.png')},
         {title: '保养', icon: require('./img/home/icon_homepage_movie_category.png')},
         {title: '换胎', icon: require('./img/home/icon_homepage_hotel_category.png')},
-        {title: '玻璃水', icon: require('./img/home/icon_homepage_ktv_category.png')},
+        {title: '洗车', icon: require('./img/home/icon_homepage_ktv_category.png')},
         {title: '优惠买单', icon: require('./img/home/icon_homepage_default.png')},
         // {title: '周边游', icon: require('./img/home/icon_homepage_foottreat_category.png')},
         // {title: '生活服务', icon: require('./img/home/icon_homepage_life_service_category.png')},

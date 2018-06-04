@@ -61,15 +61,17 @@ class HomeScene extends PureComponent<Props, State> {
             <NavigationItem
                 icon={require('../../img/mine/icon_navigation_item_message_white.png')}
                 onPress={() => {
+                    this.props.navigation.navigate('Web', {info: 'http://www.laosiji.com/thread/308460.html'})
 
                 }}
             />
         ),
         headerLeft: (
             <NavigationItem
-                title='南京'
+                title='江宁区'
                 titleStyle={{color: 'white'}}
                 onPress={() => {
+                    navigation.navigate('Select', {info: '江宁区'})
 
                 }}
             />
@@ -193,7 +195,7 @@ class HomeScene extends PureComponent<Props, State> {
                 <SpacingView/>
                 <HomeGridView infos={this.state.discounts} onGridSelected={(this.onGridSelected)}/>
                 <View style={styles.recommendHeader}>
-                    <Heading3>猜你喜欢</Heading3>
+                    <Heading3>附近门店</Heading3>
                 </View>
             </View>
         )

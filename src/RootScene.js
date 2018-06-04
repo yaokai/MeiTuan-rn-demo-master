@@ -23,6 +23,7 @@ import MineScene from './scene/Mine/MineScene'
 import WebScene from './widget/WebScene'
 import GroupPurchaseScene from './scene/GroupPurchase/GroupPurchaseScene'
 import LoginScene from "./scene/Mine/LoginScene";
+import SelectScene from "./scene/Location/SelectScene";
 
 const lightContentScenes = ['Home', 'Mine']
 
@@ -72,7 +73,7 @@ const Tab = TabNavigator(
         Home: {
             screen: HomeScene,
             navigationOptions: ({navigation}) => ({
-                tabBarLabel: '团购',
+                tabBarLabel: '主页',
                 tabBarIcon: ({focused, tintColor}) => (
                     <TabBarItem
                         tintColor={tintColor}
@@ -86,7 +87,7 @@ const Tab = TabNavigator(
         Nearby: {
             screen: NearbyScene,
             navigationOptions: ({navigation}) => ({
-                tabBarLabel: '附近',
+                tabBarLabel: '门店',
                 tabBarIcon: ({focused, tintColor}) => (
                     <TabBarItem
                         tintColor={tintColor}
@@ -148,7 +149,9 @@ const Navigator = StackNavigator(
         Tab: {screen: Tab},
         Web: {screen: WebScene},
         GroupPurchase: {screen: GroupPurchaseScene},
-        Login:{screen: LoginScene}
+        Login:{screen: LoginScene},
+        Select:{screen: SelectScene}
+
 
 
     },
